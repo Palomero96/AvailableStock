@@ -1,5 +1,5 @@
-###AvailableStock
+# AvailableStock
 Using Python to check if there are new NVIDIA Graphics cards available
 
-##Requirements
+## Requirements
 pandas, numpy, datetime, request and bs4 
