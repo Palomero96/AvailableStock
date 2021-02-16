@@ -11,17 +11,23 @@ from email.mime.multipart import MIMEMultipart
 
 __csv_dir = 'csv/'
 __products_file = 'csv/products.csv'
+__example_file = 'csv/example.csv'
 
 def main():
 #Read csv file with links into dataframe
 # CSV format: link
-
+    urls_df = pd.read_csv(__example_file)
+    
 #Loop dataframe to get the links
-    #call scrap method
-    #If available send email
+    for index,row in urls_df.iterrows():
+        url = row['Link']
 
-    print ("hello")
+        #call scrap method
+        available = check(url)
 
+        #If available send email
+        if available is True:
+            sendEmail(url)
 
 
 def sendEmail(url):
@@ -31,11 +37,11 @@ def sendEmail(url):
     receiver_email = "david.palomero.1996@gmail.com"
     #Password 
     password = ""
-    message = f"""\
-    Subject: Graphic card found
 
-    {url}"""
-    
+    subject = "GRAPHIC CARD FOUND"
+    message = url
+    message = 'Subject: {}\n\n{}'.format(subject, message)
+
     context = ssl.create_default_context()
     with smtplib.SMTP(smtp_server, port) as server:
         server.ehlo()  # Can be omitted
