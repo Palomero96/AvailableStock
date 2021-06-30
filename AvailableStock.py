@@ -16,19 +16,23 @@ __example_file = 'csv/example.csv'
 def main():
 #Read csv file with links into dataframe
 # CSV format: link
-    urls_df = pd.read_csv(__example_file)
+    urls_df = pd.read_csv(__products_file)
     
 #Loop dataframe to get the links
-    for index,row in urls_df.iterrows():
-        url = row['Link']
+    iteraciones=0
+    infinite=True
+    while infinite:
+        print("Iteracion "+ str(iteraciones))
+        for index,row in urls_df.iterrows():
+            url = row['Link']
 
-        #call scrap method
-        available = check(url)
-
-        #If available send email
-        if available is True:
-            sendEmail(url)
-
+            #call scrap method
+            available = check(url)
+            print(available)
+            #If available send email
+            if available is True:
+                sendEmail(url)
+        iteraciones= iteraciones+1
 
 def sendEmail(url):
     port = 587  # For starttls
